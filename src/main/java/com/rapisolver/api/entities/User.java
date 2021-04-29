@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+//Comment
 @Entity
 @Table(name = "users")
 @Data
