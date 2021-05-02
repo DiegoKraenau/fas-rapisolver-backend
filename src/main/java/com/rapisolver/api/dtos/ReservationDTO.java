@@ -27,5 +27,5 @@ public class ReservationDTO {
 
     private String comment;
 
-    private  Integer status;
+    private  String  status;
 }
