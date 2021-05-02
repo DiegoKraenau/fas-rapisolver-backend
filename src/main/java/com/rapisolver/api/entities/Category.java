@@ -20,6 +20,6 @@ public class Category {
     @Column(length = 50)
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
-    private List<Attention> attentions;
+/*    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+    private List<Attention> attentions;*/
 }

@@ -26,6 +26,6 @@ public class Location {
     @Column(length = 70, nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
-    private List<Reservation> reservations;
+  /*  @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
+    private List<Reservation> reservations;*/
 }

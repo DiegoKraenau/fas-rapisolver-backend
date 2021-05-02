@@ -19,6 +19,6 @@ public class Role {
     @Column(name = "can_publish", nullable = false)
     private boolean canPublish;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    private List<User> users;
+/*    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    private List<User> users;*/
 }

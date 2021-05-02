@@ -17,12 +17,15 @@ public class User {
     private Long id;
 
     @Column(length = 30, nullable = false)
-    private String firstname;
+    private String email;
 
     @Column(length = 30, nullable = false)
-    private String lastname;
+    private String password;
 
-    @Column(length = 30, nullable = false, unique = true)
+    //TODO Agregar dependcia de rol y los otros atributos faltantes
+
+
+    /*@Column(length = 30, nullable = false, unique = true)
     private String email;
 
     @Column(length = 20, nullable = false)
@@ -49,5 +52,5 @@ public class User {
     private List<UserAttention> userAttentions;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Reservation> reservations;
+    private List<Reservation> reservations;*/
 }

@@ -20,15 +20,15 @@ public class Reservation {
     @Column(nullable = false)
     private Integer status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+/*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_attention_id", nullable = false)
-    private UserAttention userAttention;
+    private SupplierAttention userAttention;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_customer_id")
-    private User customer;
+    private User customer;*/
 }
