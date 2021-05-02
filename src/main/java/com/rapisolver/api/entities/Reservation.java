@@ -1,5 +1,6 @@
 package com.rapisolver.api.entities;
 
+import com.rapisolver.api.enums.StatusOrder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -33,5 +34,5 @@ public class Reservation {
     private String comment;
 
     @Column
-    private  Integer status;
+    private StatusOrder status;
 }
