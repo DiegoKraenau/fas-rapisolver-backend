@@ -1,34 +1,34 @@
 package com.rapisolver.api.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 //Comment
 @Entity
 @Table(name = "users")
 @Data
-public class User {
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 100, nullable = false)
+    private String firstName;
+
+    @Column(length = 100, nullable = false)
+    private String lastName;
+
+    @Column(length = 100, nullable = false)
     private String email;
 
-    @Column(length = 30, nullable = false)
-    private String password;
-
-    //TODO Agregar dependcia de rol y los otros atributos faltantes
-
-
-    /*@Column(length = 30, nullable = false, unique = true)
-    private String email;
-
-    @Column(length = 20, nullable = false)
+    @Column(length = 250, nullable = false)
     private String password;
 
     @Column(length = 9, nullable = false)
@@ -42,6 +42,16 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    public User(String firstName, String lastName, String email, String password, String phone, Date birthdate, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.birthdate = birthdate;
+        this.role = role;
+    }
+/*
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> scores;
 
