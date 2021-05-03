@@ -3,8 +3,9 @@ package com.rapisolver.api.services.impl;
 import com.rapisolver.api.dtos.AttentionDTO;
 import com.rapisolver.api.dtos.CreateAttentionDTO;
 import com.rapisolver.api.dtos.CreateReservationDTO;
-import com.rapisolver.api.entities.Attention;
-import com.rapisolver.api.entities.Category;
+import com.rapisolver.api.dtos.ReservationDTO;
+import com.rapisolver.api.entities.*;
+import com.rapisolver.api.enums.StatusOrder;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.NotFoundException;
 import com.rapisolver.api.exceptions.RapisolverException;
@@ -65,7 +66,26 @@ public class AttentionServiceImpl implements AttentionService {
     }
 
     @Override
-    public AttentionDTO updateAttention(Long id, CreateReservationDTO createReservationDTO) throws RapisolverException {
-        return null;
+    public AttentionDTO updateAttention(Long id, CreateAttentionDTO createAttentionDTO) throws RapisolverException {
+
+        Attention attentionObj;
+
+        Attention attention = attentionRepository.findById(id).orElseThrow(() -> new NotFoundException("Servicio a actualizar no encontrado"));
+
+        Category category= categoryRepository.findById(createAttentionDTO.getCategoryId()).orElseThrow(()->new NotFoundException("Categoria no encontrada"));
+
+
+
+        try {
+
+            attention.setName(createAttentionDTO.getName());
+            attention.setDetail(createAttentionDTO.getDetail());
+            attention.setCategory(category);
+            attentionObj=attentionRepository.save(attention);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Error!! No se pudo actualizar los servicios");
+        }
+
+        return modelMapper.map(attentionObj,AttentionDTO.class);
     }
 }
