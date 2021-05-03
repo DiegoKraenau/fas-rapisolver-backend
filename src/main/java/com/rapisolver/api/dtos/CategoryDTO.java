@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AttentionDTO {
-    private Long categoryId;
+public class CategoryDTO {
     private String name;
-    private String detail;
+    private String description;
 }

@@ -4,10 +4,12 @@ import com.rapisolver.api.dtos.AttentionDTO;
 import com.rapisolver.api.dtos.CreateAttentionDTO;
 import com.rapisolver.api.dtos.CreateReservationDTO;
 import com.rapisolver.api.entities.Attention;
+import com.rapisolver.api.entities.Category;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.NotFoundException;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.AttentionRepository;
+import com.rapisolver.api.repositories.CategoryRepository;
 import com.rapisolver.api.services.AttentionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ import java.util.stream.Collectors;
 public class AttentionServiceImpl implements AttentionService {
     @Autowired
     AttentionRepository attentionRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     public static final ModelMapper modelMapper=new ModelMapper();
 
@@ -42,10 +47,14 @@ public class AttentionServiceImpl implements AttentionService {
 
     @Override
     public AttentionDTO createAttention(CreateAttentionDTO createAttentionDTO) throws RapisolverException {
+
+        final Category category= categoryRepository.findById(createAttentionDTO.getCategoryId()).orElseThrow(()->new NotFoundException("Categoria no encontrada"));
+
         Attention attentionEntity;
         Attention attention = new Attention();
         attention.setDetail(createAttentionDTO.getDetail());
         attention.setName(createAttentionDTO.getName());
+        attention.setCategory(category);
         try{
             attentionEntity = attentionRepository.save(attention);
         }catch (Exception e){
