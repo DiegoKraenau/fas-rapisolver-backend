@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 )
 public class SwaggerConfig {
     @Bean(name = "RapiSolverDoc")
-    public OpenAPI tutofastOpenApi(){
+    public OpenAPI rapiSolverOpenApi(){
         // Available at
         // http://localhost:8080/swagger-ui.html
         return new OpenAPI()

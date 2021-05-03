@@ -1,6 +1,6 @@
-package com.rapisolver.api.service;
+package com.rapisolver.api.services;
 
-import com.rapisolver.api.controller.commons.RapiSolverResponse;
+import com.rapisolver.api.controllers.commons.RapiSolverResponse;
 import com.rapisolver.api.dtos.LoginRest;
 import com.rapisolver.api.dtos.SignUpRest;
 import org.springframework.http.ResponseEntity;

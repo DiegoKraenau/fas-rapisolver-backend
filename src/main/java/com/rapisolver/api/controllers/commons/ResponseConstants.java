@@ -1,4 +1,4 @@
-package com.rapisolver.api.controller.commons;
+package com.rapisolver.api.controllers.commons;
 
 public class ResponseConstants {
     public final static Integer ERROR_CODE	=	-1;

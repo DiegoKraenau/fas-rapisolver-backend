@@ -23,7 +23,6 @@ public class User implements Serializable {
     private Long id;
 
     @Column(length = 100, nullable = false)
-
     private String email;
 
     @Column(length = 10, nullable = false)
@@ -34,20 +33,20 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Reservation> reservations;
 
+    @Column(length = 100)
     private String firstName;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String lastName;
 
-    @Column(length = 9, nullable = false)
+    @Column(length = 9)
     private String phone;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date birthdate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public User(String firstName, String lastName, String email, String password, String phone, Date birthdate, Role role) {

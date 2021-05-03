@@ -1,4 +1,4 @@
-package com.rapisolver.api.repository;
+package com.rapisolver.api.repositories;
 
 import com.rapisolver.api.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

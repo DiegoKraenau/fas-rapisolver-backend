@@ -1,7 +1,7 @@
 package com.rapisolver.api.security.service;
 
 import com.rapisolver.api.entities.User;
-import com.rapisolver.api.repository.UserRepository;
+import com.rapisolver.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

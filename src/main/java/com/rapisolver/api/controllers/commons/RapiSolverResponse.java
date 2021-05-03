@@ -1,4 +1,4 @@
-package com.rapisolver.api.controller.commons;
+package com.rapisolver.api.controllers.commons;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
