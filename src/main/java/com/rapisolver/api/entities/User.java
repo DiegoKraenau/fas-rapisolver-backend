@@ -5,21 +5,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+//Comment
 @Entity
 @Table(name = "users")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User implements Serializable {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 100, nullable = false)
+
     private String email;
 
     @Column(length = 10, nullable = false)
@@ -30,11 +34,10 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Reservation> reservations;
 
-    /*@Column(length = 30, nullable = false, unique = true)
-    private String email;
+    private String firstName;
 
-    @Column(length = 20, nullable = false)
-    private String password;
+    @Column(length = 100, nullable = false)
+    private String lastName;
 
     @Column(length = 9, nullable = false)
     private String phone;
@@ -47,6 +50,16 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    public User(String firstName, String lastName, String email, String password, String phone, Date birthdate, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.birthdate = birthdate;
+        this.role = role;
+    }
+/*
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> scores;
 
