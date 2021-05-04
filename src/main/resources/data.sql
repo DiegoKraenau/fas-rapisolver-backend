@@ -16,3 +16,4 @@ INSERT INTO attentions(id,name,detail) VALUES (1,'maestro','clases privadas');
 --SupplierAttentions
 INSERT INTO  supplier_attentions (id,price,attention_id,user_supplier_id) VALUES (1,300,1,3);
 
+*/
