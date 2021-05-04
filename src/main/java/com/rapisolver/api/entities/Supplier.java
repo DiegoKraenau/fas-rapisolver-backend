@@ -25,10 +25,6 @@ public class Supplier extends User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
     private List<SupplierAttentions> supplierAttentionsList;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
-    private List<SupplierAttentions> supplierAttentionsList;
 }
