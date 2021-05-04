@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -16,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(name = "id")
+@DiscriminatorValue("SUPPLIER")
 public class Supplier extends User {
     @Column(length = 100)
     String comercialName;
