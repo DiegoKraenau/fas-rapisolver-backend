@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="supplier")
@@ -24,5 +22,7 @@ public class Supplier extends User {
         super(firstName, lastName, email, password, phone, birthdate, role);
         this.comercialName = comercialName;
     }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
+    private List<SupplierAttentions> supplierAttentionsList;
 
 }
