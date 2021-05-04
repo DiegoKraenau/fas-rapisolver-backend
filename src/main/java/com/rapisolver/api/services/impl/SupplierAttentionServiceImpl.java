@@ -31,8 +31,6 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
 
     @Override
     public List<SupplierDTO> findSuppliersByAttention(String attention) throws RapisolverException {
-
-
         Attention attention1=new Attention();
         attention1= attentionRepository.findByName(attention).orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
         List<SupplierAttentions> supplierAttentions;
@@ -40,11 +38,16 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
         List<Supplier> suppliers;
         suppliers=supplierRepository.findBySupplierAttentionsListIn(supplierAttentions);
         return suppliers.stream().map(supplier -> modelMapper.map(supplier, SupplierDTO.class)).collect(Collectors.toList());
-
     }
 
     @Override
     public List<AttentionDTO> findAttentionsBySuppliers(Long supplier_Id) throws RapisolverException {
-        return null;
+        Supplier supplier1 = new Supplier();
+        supplier1=supplierRepository.findById(supplier_Id).orElseThrow(()->new NotFoundException("SUPPLIER_NOT_FOUND"));
+        List<SupplierAttentions> supplierAttentions;
+        supplierAttentions = supplierAttentionRepository.findBySupplierId(supplier1.getId());
+        List<Attention> attentions;
+        attentions = attentionRepository.findBySupplierAttentionsIn(supplierAttentions);
+        return attentions.stream().map(attention -> modelMapper.map(attention,AttentionDTO.class)).collect(Collectors.toList());
     }
 }

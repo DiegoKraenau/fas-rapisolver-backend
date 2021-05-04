@@ -12,5 +12,4 @@ import java.util.Optional;
 public interface AttentionRepository extends JpaRepository<Attention,Long> {
     Optional<Attention> findByName(String name);
     List<Attention> findBySupplierAttentionsIn(List<SupplierAttentions> supplierAttentions);
-
 }

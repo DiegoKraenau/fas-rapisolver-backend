@@ -9,5 +9,4 @@ import java.util.List;
 public interface SupplierAttentionService {
     List<SupplierDTO> findSuppliersByAttention(String attention) throws RapisolverException;
     List<AttentionDTO> findAttentionsBySuppliers(Long supplier_Id) throws RapisolverException;
-
 }

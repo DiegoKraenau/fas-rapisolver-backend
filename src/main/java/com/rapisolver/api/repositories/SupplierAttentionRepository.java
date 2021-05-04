@@ -10,5 +10,4 @@ import java.util.List;
 public interface SupplierAttentionRepository  extends JpaRepository<SupplierAttentions,Long> {
     List<SupplierAttentions> findByAttention_Id(Long attention_id);
     List<SupplierAttentions> findBySupplierId(Long supplier_id);
-
 }

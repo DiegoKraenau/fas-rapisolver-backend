@@ -1,6 +1,5 @@
 package com.rapisolver.api.repositories;
 
-import com.rapisolver.api.entities.Attention;
 import com.rapisolver.api.entities.Supplier;
 import com.rapisolver.api.entities.SupplierAttentions;
 import org.springframework.data.jpa.repository.JpaRepository;
