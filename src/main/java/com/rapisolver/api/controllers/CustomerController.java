@@ -18,7 +18,7 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @ResponseStatus(HttpStatus.OK)
+    //@ResponseStatus(HttpStatus.OK)
     @PostMapping("/customer/{customerId}/buySubscription/{subscriptionId}")
     public RapisolverResponse<String> buySubscription(@PathVariable Long customerId,@PathVariable Long subscriptionId) throws RapisolverException {
         return new RapisolverResponse<>(200,String.valueOf(HttpStatus.OK),"OK",customerService.buySubscription(customerId,subscriptionId));

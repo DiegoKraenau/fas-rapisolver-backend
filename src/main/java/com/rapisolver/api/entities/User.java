@@ -14,7 +14,9 @@ import java.util.List;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type",
+        discriminatorType = DiscriminatorType.STRING)
 public class User implements Serializable {
 
 
@@ -45,7 +47,7 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthdate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 

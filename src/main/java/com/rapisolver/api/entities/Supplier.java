@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(name = "id")
+@DiscriminatorValue("SUPPLIER")
 public class Supplier extends User {
     @Column(length = 100)
     String comercialName;
