@@ -8,6 +8,7 @@ import javax.persistence.Column;
 @Getter
 @Setter
 public class CreateAttentionDTO {
+    private Long categoryId;
     private String name;
     private String detail;
 }

@@ -47,4 +47,16 @@ public class AttentionController {
     public RapisolverResponse<AttentionDTO> createAttention(@RequestBody @Valid CreateAttentionDTO createAttentionDTO) throws RapisolverException{
         return new RapisolverResponse<>(200,String.valueOf(HttpStatus.OK),"OK",attentionService.createAttention(createAttentionDTO));
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/attention/{attentionId}")
+    public RapisolverResponse<AttentionDTO> UpdateAttention(@PathVariable Long attentionId,@RequestBody @Valid CreateAttentionDTO createAttentionDTO){
+        AttentionDTO attentionDTO;
+        try {
+            attentionDTO=attentionService.updateAttention(attentionId,createAttentionDTO);
+        }catch (RapisolverException ex){
+            return new RapisolverResponse<>(ex.getCode(),ex.getStatus(),ex.getMessage());
+        }
+        return new RapisolverResponse<>(200,"ok","Servicio actualizado correctamente",attentionDTO);
+    }
 }
