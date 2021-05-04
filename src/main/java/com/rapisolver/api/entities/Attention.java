@@ -21,10 +21,13 @@ public class Attention {
     @Column(length = 50)
     private String detail;
 
- /*   @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
     private List<SupplierAttentions> supplierAttentions;
+
+   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
+    private List<SupplierAttention> userAttentions;*/
 }

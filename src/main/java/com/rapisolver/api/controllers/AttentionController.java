@@ -48,17 +48,15 @@ public class AttentionController {
         return new RapisolverResponse<>(200,String.valueOf(HttpStatus.OK),"OK",attentionService.createAttention(createAttentionDTO));
     }
 
-    @Autowired
-    SupplierAttentionService supplierAttentionService;
-
-    @GetMapping("/attentions-name/{id}")
-    private RapisolverResponse<List<AttentionDTO>> getByID(@PathVariable @Valid Long id) {
-        List<AttentionDTO> attention;
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/attention/{attentionId}")
+    public RapisolverResponse<AttentionDTO> UpdateAttention(@PathVariable Long attentionId,@RequestBody @Valid CreateAttentionDTO createAttentionDTO){
+        AttentionDTO attentionDTO;
         try {
-            attention = supplierAttentionService.findAttentionsBySuppliers(id);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
+            attentionDTO=attentionService.updateAttention(attentionId,createAttentionDTO);
+        }catch (RapisolverException ex){
+            return new RapisolverResponse<>(ex.getCode(),ex.getStatus(),ex.getMessage());
         }
-        return new RapisolverResponse<>(200, "OK","Suppliers encontrados", attention);
+        return new RapisolverResponse<>(200,"ok","Servicio actualizado correctamente",attentionDTO);
     }
 }

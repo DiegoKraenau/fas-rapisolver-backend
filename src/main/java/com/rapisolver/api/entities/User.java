@@ -25,7 +25,7 @@ public class User implements Serializable {
     @Column(length = 100, nullable = false)
     private String email;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 500, nullable = false)
     private String password;
 
     //TODO Agregar dependcia de rol y los otros atributos faltantes

@@ -11,3 +11,5 @@ public interface AttentionService {
     AttentionDTO createAttention(CreateAttentionDTO createAttentionDTO) throws RapisolverException;
     AttentionDTO updateAttention(Long id, CreateReservationDTO createReservationDTO) throws RapisolverException;
 }
+    AttentionDTO updateAttention(Long id, CreateAttentionDTO createAttentionDTO) throws RapisolverException;
+}
