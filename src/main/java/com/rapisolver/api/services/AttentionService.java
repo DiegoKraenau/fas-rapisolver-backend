@@ -9,7 +9,5 @@ public interface AttentionService {
     List<AttentionDTO> findAttentions() throws RapisolverException;
     AttentionDTO findById(Long attentionId) throws RapisolverException;
     AttentionDTO createAttention(CreateAttentionDTO createAttentionDTO) throws RapisolverException;
-    AttentionDTO updateAttention(Long id, CreateReservationDTO createReservationDTO) throws RapisolverException;
-}
     AttentionDTO updateAttention(Long id, CreateAttentionDTO createAttentionDTO) throws RapisolverException;
 }
