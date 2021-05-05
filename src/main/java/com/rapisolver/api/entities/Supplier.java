@@ -8,11 +8,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="supplier")
+//@Table(name="supplier")
 @NoArgsConstructor
 @Getter
 @Setter
-@PrimaryKeyJoinColumn(name = "id")
 @DiscriminatorValue("SUPPLIER")
 public class Supplier extends User {
     @Column(length = 100)
