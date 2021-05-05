@@ -24,6 +24,6 @@ public class Attention {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
-    private List<SupplierAttention> userAttentions;*/
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
+    private List<SupplierAttentions> userAttentions;
 }

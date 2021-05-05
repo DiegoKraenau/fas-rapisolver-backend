@@ -20,7 +20,7 @@ public class SupplierAttentions {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplierAttention")
     private List<Reservation> reservations;
 
-/*    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_supplier_id", nullable = false)
     private User supplier;
 
@@ -28,6 +28,6 @@ public class SupplierAttentions {
     @JoinColumn(name = "attention_id", nullable = false)
     private Attention attention;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
+    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
     private List<Reservation> reservations;*/
 }

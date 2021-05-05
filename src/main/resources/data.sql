@@ -9,5 +9,8 @@ INSERT INTO users(
     id, birthdate, email, first_name, last_name, password, phone, role_id)
 VALUES (2, '2004-08-20','jesusgonzalo@gmail.com', 'jesus', 'duran', 'password', '994587666', 1);*/
 --SupplierAttentions
-INSERT INTO  supplier_attentions (id,price) VALUES (1,300);
+--INSERT INTO  supplier_attentions (id,price) VALUES (1,300);
+--Categories
+INSERT INTO categories (id, name, description) VALUES (1,'Electricidad','Mantenimiento y reparaciones de circuitos de casa');
+--suppliers
 
