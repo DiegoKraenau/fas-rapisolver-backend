@@ -6,6 +6,7 @@ import com.rapisolver.api.dtos.LoginRest;
 import com.rapisolver.api.dtos.SignUpRest;
 import com.rapisolver.api.dtos.UserDTO;
 import com.rapisolver.api.entities.*;
+import com.rapisolver.api.repositories.LocationRepository;
 import com.rapisolver.api.repositories.RoleRepository;
 
 import com.rapisolver.api.repositories.UserRepository;
@@ -53,6 +54,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     AuthenticationManager authenticationManager;
 
     @Autowired
+    LocationRepository locationRepository;
+
+    @Autowired
     ModelMapper modelMapper;
 
     @Autowired
@@ -84,7 +88,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
             Location location = new Location(signUpRequest.getCountry(), signUpRequest.getState(), signUpRequest.getCity(), signUpRequest.getAddress());
 
-            customer.setLocation(location);
+            Location savedLocation = locationRepository.save(location);
+
+            customer.setLocation(savedLocation);
             savedUser = userRepository.save(customer);
 
             UserDTO userDTO = modelMapper.map(savedUser,UserDTO.class);
