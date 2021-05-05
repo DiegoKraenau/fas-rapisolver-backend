@@ -25,7 +25,7 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplierAttention_id", nullable = false)
-    private SupplierAttentions supplierAttention;
+    private SupplierAttention supplierAttention;
 
     @Column(nullable = false)
     private Date dateRequested;
