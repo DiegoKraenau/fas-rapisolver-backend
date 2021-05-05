@@ -1,6 +1,8 @@
 package com.rapisolver.api.services.impl;
 
 import com.rapisolver.api.dtos.AttentionDTO;
+import com.rapisolver.api.dtos.SupplierAtenttionAttDTO;
+import com.rapisolver.api.dtos.SupplierAtenttionSupDTO;
 import com.rapisolver.api.dtos.SupplierDTO;
 import com.rapisolver.api.entities.Attention;
 import com.rapisolver.api.entities.Supplier;
@@ -30,24 +32,20 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
     private static final ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public List<SupplierDTO> findSuppliersByAttention(String attention) throws RapisolverException {
+    public List<SupplierAtenttionSupDTO> findSuppliersByAttention(String attention) throws RapisolverException {
         Attention attention1=new Attention();
         attention1= attentionRepository.findByName(attention).orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
         List<SupplierAttentions> supplierAttentions;
         supplierAttentions=supplierAttentionRepository.findByAttention_Id(attention1.getId());
-        List<Supplier> suppliers;
-        suppliers=supplierRepository.findBySupplierAttentionsListIn(supplierAttentions);
-        return suppliers.stream().map(supplier -> modelMapper.map(supplier, SupplierDTO.class)).collect(Collectors.toList());
+        return supplierAttentions.stream().map(supplierAttentions1 -> modelMapper.map(supplierAttentions1, SupplierAtenttionSupDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public List<AttentionDTO> findAttentionsBySuppliers(Long supplier_Id) throws RapisolverException {
+    public List<SupplierAtenttionAttDTO> findAttentionsBySuppliers(String comercialName) throws RapisolverException {
         Supplier supplier1 = new Supplier();
-        supplier1=supplierRepository.findById(supplier_Id).orElseThrow(()->new NotFoundException("SUPPLIER_NOT_FOUND"));
+        supplier1=supplierRepository.findByComercialName(comercialName).orElseThrow(()->new NotFoundException("SUPPLIER_NOT_FOUND"));
         List<SupplierAttentions> supplierAttentions;
         supplierAttentions = supplierAttentionRepository.findBySupplierId(supplier1.getId());
-        List<Attention> attentions;
-        attentions = attentionRepository.findBySupplierAttentionsIn(supplierAttentions);
-        return attentions.stream().map(attention -> modelMapper.map(attention,AttentionDTO.class)).collect(Collectors.toList());
+        return supplierAttentions.stream().map(supplierAttentions1 -> modelMapper.map(supplierAttentions1,SupplierAtenttionAttDTO.class)).collect(Collectors.toList());
     }
 }

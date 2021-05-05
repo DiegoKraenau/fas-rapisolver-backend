@@ -1,6 +1,7 @@
 package com.rapisolver.api.controllers;
 
 
+import com.rapisolver.api.dtos.SupplierAtenttionSupDTO;
 import com.rapisolver.api.dtos.SupplierDTO;
 
 import com.rapisolver.api.exceptions.RapisolverException;
@@ -23,8 +24,8 @@ public class SupplierController {
     SupplierAttentionService supplierAttentionService;
 
     @GetMapping("/suppliers-name/{name}")
-    private RapisolverResponse<List<SupplierDTO>> getByName(@PathVariable @Valid String name) {
-        List<SupplierDTO> supplier;
+    private RapisolverResponse<List<SupplierAtenttionSupDTO>> getByName(@PathVariable @Valid String name) {
+        List<SupplierAtenttionSupDTO> supplier;
         try {
             supplier = supplierAttentionService.findSuppliersByAttention(name);
         } catch (RapisolverException e) {
