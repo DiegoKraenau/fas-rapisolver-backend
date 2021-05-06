@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
+<<<<<<< HEAD
   @Autowired
   LocationRepository locationRepository;
 
@@ -30,6 +31,19 @@ public class ReservationServiceImpl implements ReservationService {
 
   @Autowired
   ReservationRepository reservationRepository;
+=======
+    @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private SupplierAttentionRepository supplierAttentionRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+>>>>>>> 9057d88f20dfb37f1f8c8ba11348c277914fec56
 
   public static final ModelMapper modelMapper = new ModelMapper();
 
@@ -44,6 +58,7 @@ public class ReservationServiceImpl implements ReservationService {
       );
     }
 
+<<<<<<< HEAD
     return reservations
       .stream()
       .map(reservation -> modelMapper.map(reservation, ReservationDTO.class))
@@ -93,6 +108,30 @@ public class ReservationServiceImpl implements ReservationService {
       reservation.setDateRequested(createReservationDTO.getDateRequested());
       reservation.setComment(createReservationDTO.getComment());
       /*
+=======
+    @Override
+    public ReservationDTO createReservation(CreateReservationDTO createReservationDTO) throws RapisolverException {
+            Reservation reservation = new Reservation();
+            Location location = modelMapper.map(createReservationDTO,Location.class);
+            User usuario= new User();
+            SupplierAttention supplierAttention = new SupplierAttention();
+
+            usuario=userRepository.findById(createReservationDTO.getUserId())
+                    .orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
+
+            supplierAttention=supplierAttentionRepository.findById(createReservationDTO.getSupplierAttentionId())
+                    .orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
+
+        try {
+            ReservationDTO reservationDTO = new ReservationDTO();
+            location = locationRepository.save(location);
+            reservation.setLocation(location);
+            reservation.setUser(usuario);
+            reservation.setSupplierAttention(supplierAttention);
+            reservation.setDateRequested(createReservationDTO.getDateRequested());
+            reservation.setComment(createReservationDTO.getComment());
+            /*
+>>>>>>> 9057d88f20dfb37f1f8c8ba11348c277914fec56
             1:Pendiente
             2:Finalizado
              */
@@ -110,6 +149,7 @@ public class ReservationServiceImpl implements ReservationService {
     } catch (Exception e) {
       throw new InternalServerErrorException("INTERNAL_SERVER_ERROR");
     }
+<<<<<<< HEAD
   }
 
   @Override
@@ -147,6 +187,35 @@ public class ReservationServiceImpl implements ReservationService {
       throw new InternalServerErrorException(
         "Error de base de datos al actualizar el rol"
       );
+=======
+
+    @Override
+    public ReservationDTO updateReservation(Long id, UpdateReservationDTO updateReservationDTO) throws RapisolverException {
+        Reservation reservationDB = reservationRepository.findById(id).orElseThrow(() -> new NotFoundException("Reservacion a actualizar no encontrado"));
+
+        Location location = modelMapper.map(updateReservationDTO,Location.class);
+        User usuario = userRepository.findById(updateReservationDTO.getUserId())
+                                        .orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
+        SupplierAttention supplierAttention = supplierAttentionRepository.findById(updateReservationDTO.getSupplierAttentionId())
+                .orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
+
+        try {
+            location = locationRepository.save(location);
+
+            reservationDB.setComment(updateReservationDTO.getComment());
+            reservationDB.setDateRequested(updateReservationDTO.getDateRequested());
+            reservationDB.setStatus(StatusOrder.ORDERED);
+            reservationDB.setUser(usuario);
+            reservationDB.setLocation(location);
+            reservationDB.setSupplierAttention(supplierAttention);
+
+            reservationDB = reservationRepository.save(reservationDB);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Error de base de datos al actualizar el rol");
+        }
+
+        return modelMapper.map(reservationDB,ReservationDTO.class);
+>>>>>>> 9057d88f20dfb37f1f8c8ba11348c277914fec56
     }
 
     return modelMapper.map(reservationDB, ReservationDTO.class);

@@ -31,5 +31,15 @@ public class SignUpRest {
     private Date birthdate;
 
     @Column(length = 20, nullable = false)
-    private String role;
+    private String country;
+
+    @Column(length = 20, nullable = false)
+    private String state;
+
+    @Column(length = 20, nullable = false)
+    private String city;
+
+    @Column(length = 70, nullable = false)
+    private String address;
+
 }

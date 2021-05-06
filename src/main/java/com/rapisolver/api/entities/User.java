@@ -51,6 +51,10 @@ public class User implements Serializable {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="location_id")
+    private Location location;
+
     public User(String firstName, String lastName, String email, String password, String phone, Date birthdate, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
