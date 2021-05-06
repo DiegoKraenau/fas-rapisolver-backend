@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "supplier_attentions")
 @Data
-public class SupplierAttentions {
+public class SupplierAttention {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,4 @@ public class SupplierAttentions {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attention_id", nullable = false)
     private Attention attention;
-
-    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
-    private List<Reservation> reservations;*/
 }
