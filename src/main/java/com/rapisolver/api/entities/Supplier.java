@@ -22,8 +22,8 @@ public class Supplier extends User {
         super(firstName, lastName, email, password, phone, birthdate, role);
         this.comercialName = comercialName;
     }
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
+    //private List<SupplierAttention> supplierAttentionsList;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "supplier")
-    private List<SupplierAttention> supplierAttentions;
 
 }

@@ -28,3 +28,4 @@ public class SupplierAttention {
     @JoinColumn(name = "attention_id", nullable = false)
     private Attention attention;
 }
+

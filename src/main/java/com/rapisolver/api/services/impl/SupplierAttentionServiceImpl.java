@@ -1,41 +1,55 @@
 package com.rapisolver.api.services.impl;
 
-import com.rapisolver.api.dtos.CreateAttentionDTO;
-import com.rapisolver.api.dtos.CreateSupplierAttentionDTO;
-import com.rapisolver.api.dtos.SupplierAttentionDTO;
-import com.rapisolver.api.entities.Attention;
-import com.rapisolver.api.entities.Category;
-import com.rapisolver.api.entities.Supplier;
-import com.rapisolver.api.entities.SupplierAttention;
+import com.rapisolver.api.dtos.*;
+import com.rapisolver.api.entities.*;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.RapisolverException;
-import com.rapisolver.api.repositories.AttentionRepository;
-import com.rapisolver.api.repositories.CategoryRepository;
-import com.rapisolver.api.repositories.SupplierAttentionRepository;
-import com.rapisolver.api.repositories.SupplierRepository;
+import com.rapisolver.api.repositories.*;
 import com.rapisolver.api.services.SupplierAttentionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SupplierAttentionServiceImpl  implements  SupplierAttentionService {
+    @Autowired
+    private AttentionRepository attentionRepository;
+    @Autowired
+    private SupplierRepository supplierRepository;
+    @Autowired
+    private SupplierAttentionRepository supplierAttentionRepository;
 
     @Autowired
-    SupplierAttentionRepository supplierAttentionRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    SupplierRepository supplierRepository;
+    private CategoryRepository categoryRepository;
 
-    @Autowired
-    AttentionRepository attentionRepository;
+    private static final ModelMapper modelMapper = new ModelMapper();
 
-    @Autowired
-    CategoryRepository categoryRepository;
+    @Override
+    public List<SupplierAtenttionAttDTO> findSuppliersByAttention(String attention) throws RapisolverException {
+        List<Attention> attention1;
+        attention1= attentionRepository.findByNameContaining(attention);
+        List<SupplierAttention> supplierAttentions;
+        supplierAttentions=supplierAttentionRepository.findByAttentionIn(attention1);
 
-    public static final ModelMapper modelMapper=new ModelMapper();
+        return supplierAttentions.stream().map(supplierAttention -> modelMapper.map(supplierAttention, SupplierAtenttionAttDTO.class)).collect(Collectors.toList());
+    }
 
+    @Override
+    public List<SupplierAtenttionSupDTO> findAttentionsBySuppliers(String supplier) throws RapisolverException {
+        List<User> supplier1;
+        supplier1 = userRepository.findByFirstNameContaining(supplier);
+        List<SupplierAttention> supplierAttentions;
+        supplierAttentions = supplierAttentionRepository.findBySupplierIn(supplier1);
+
+        return supplierAttentions.stream().map(supplierAttention -> modelMapper.map(supplierAttention, SupplierAtenttionSupDTO.class)).collect(Collectors.toList());
+    }
 
     //Long supplierId, CreateAttentionDTO attention, double price
     @Override
