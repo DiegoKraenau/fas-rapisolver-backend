@@ -96,6 +96,9 @@ public class ReservationServiceTest {
        Mockito.when(userRepository.findById(USER_ID)).thenReturn(OPTIONAL_USER);
        Mockito.when(supplierAttentionRepository.findById(SUPPLIER_ATTENTION_ID)).thenReturn(OPTIONAL_SUPPLIER_ATTENTIONS);
        Mockito.when(reservationRepository.save(Mockito.any(Reservation.class))).thenReturn(new Reservation());
+
        reservationServiceImpl.createReservation(CREATE_RESERVATION_DTO);
+
+
    }
 }

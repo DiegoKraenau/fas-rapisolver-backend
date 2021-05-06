@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-public class CustomerServiceTest {
+public class  CustomerServiceTest {
 
     private static final Long CUSTOMER_ID=1L;
 
