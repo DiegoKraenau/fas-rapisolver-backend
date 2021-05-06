@@ -1,6 +1,7 @@
 package com.rapisolver.api.controllers;
 
 
+import com.rapisolver.api.dtos.SupplierAtenttionAttDTO;
 import com.rapisolver.api.dtos.SupplierAtenttionSupDTO;
 import com.rapisolver.api.dtos.SupplierDTO;
 
@@ -23,14 +24,16 @@ public class SupplierController {
     @Autowired
     SupplierAttentionService supplierAttentionService;
 
-    @GetMapping("/suppliers-name/{name}")
-    private RapisolverResponse<List<SupplierAtenttionSupDTO>> getByName(@PathVariable @Valid String name) {
-        List<SupplierAtenttionSupDTO> supplier;
+
+
+    @GetMapping("/suppliers-names/{names}")
+    private RapisolverResponse<List<SupplierAtenttionSupDTO>> getBySupplierName(@PathVariable @Valid  String names) {
+        List<SupplierAtenttionSupDTO> suppliers;
         try {
-            supplier = supplierAttentionService.findSuppliersByAttention(name);
+            suppliers = supplierAttentionService.findAttentionsBySuppliers(names);
         } catch (RapisolverException e) {
             return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
         }
-        return new RapisolverResponse<>(200, "OK","Suppliers encontrados", supplier);
+        return new RapisolverResponse<>(200, "OK","Suppliers encontrados", suppliers);
     }
 }

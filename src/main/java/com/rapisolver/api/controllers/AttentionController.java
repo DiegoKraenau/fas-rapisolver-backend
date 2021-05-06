@@ -43,16 +43,17 @@ public class AttentionController {
         return new RapisolverResponse<>(200, "OK","Atencion encontrada", attention);
     }
 
-    @GetMapping("/attention-names/{names}")
-    private RapisolverResponse<List<SupplierAtenttionAttDTO>> getBySupplierName(@PathVariable @Valid  String names) {
-        List<SupplierAtenttionAttDTO> attentions;
+    @GetMapping("/atenttions-name/{names}")
+    private RapisolverResponse<List<SupplierAtenttionAttDTO>> getByName(@PathVariable @Valid String names) {
+        List<SupplierAtenttionAttDTO> attention;
         try {
-            attentions = supplierAttentionService.findAttentionsBySuppliers(names);
+            attention = supplierAttentionService.findSuppliersByAttention(names);
         } catch (RapisolverException e) {
             return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
         }
-        return new RapisolverResponse<>(200, "OK","Atencion encontrada", attentions);
+        return new RapisolverResponse<>(200, "OK","Atenciones encontradas", attention);
     }
+
 
 
     @ResponseStatus(HttpStatus.OK)

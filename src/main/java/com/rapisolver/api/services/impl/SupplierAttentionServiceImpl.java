@@ -1,18 +1,10 @@
 package com.rapisolver.api.services.impl;
 
-import com.rapisolver.api.dtos.CreateAttentionDTO;
-import com.rapisolver.api.dtos.CreateSupplierAttentionDTO;
-import com.rapisolver.api.dtos.SupplierAttentionDTO;
-import com.rapisolver.api.entities.Attention;
-import com.rapisolver.api.entities.Category;
-import com.rapisolver.api.entities.Supplier;
-import com.rapisolver.api.entities.SupplierAttention;
+import com.rapisolver.api.dtos.*;
+import com.rapisolver.api.entities.*;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.RapisolverException;
-import com.rapisolver.api.repositories.AttentionRepository;
-import com.rapisolver.api.repositories.CategoryRepository;
-import com.rapisolver.api.repositories.SupplierAttentionRepository;
-import com.rapisolver.api.repositories.SupplierRepository;
+import com.rapisolver.api.repositories.*;
 import com.rapisolver.api.services.SupplierAttentionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,39 +23,33 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
     @Autowired
     private SupplierAttentionRepository supplierAttentionRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     private static final ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public List<SupplierAtenttionSupDTO> findSuppliersByAttention(String attention) throws RapisolverException {
-        Attention attention1=new Attention();
-        attention1= attentionRepository.findByName(attention).orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
+    public List<SupplierAtenttionAttDTO> findSuppliersByAttention(String attention) throws RapisolverException {
+        List<Attention> attention1;
+        attention1= attentionRepository.findByNameContaining(attention);
         List<SupplierAttention> supplierAttentions;
-        supplierAttentions=supplierAttentionRepository.findByAttention_Id(attention1.getId());
-        return supplierAttentions.stream().map(supplierAttentions1 -> modelMapper.map(supplierAttentions1, SupplierAtenttionSupDTO.class)).collect(Collectors.toList());
+        supplierAttentions=supplierAttentionRepository.findByAttentionIn(attention1);
+
+        return supplierAttentions.stream().map(supplierAttention -> modelMapper.map(supplierAttention, SupplierAtenttionAttDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public List<SupplierAtenttionAttDTO> findAttentionsBySuppliers(String comercialName) throws RapisolverException {
-        Supplier supplier1 = new Supplier();
-        supplier1=supplierRepository.findByComercialName(comercialName).orElseThrow(()->new NotFoundException("SUPPLIER_NOT_FOUND"));
+    public List<SupplierAtenttionSupDTO> findAttentionsBySuppliers(String supplier) throws RapisolverException {
+        List<User> supplier1;
+        supplier1 = userRepository.findByFirstNameContaining(supplier);
         List<SupplierAttention> supplierAttentions;
-        supplierAttentions = supplierAttentionRepository.findBySupplierId(supplier1.getId());
-        return supplierAttentions.stream().map(supplierAttentions1 -> modelMapper.map(supplierAttentions1,SupplierAtenttionAttDTO.class)).collect(Collectors.toList());
+        supplierAttentions = supplierAttentionRepository.findBySupplierIn(supplier1);
 
-    @Autowired
-    SupplierAttentionRepository supplierAttentionRepository;
-
-    @Autowired
-    SupplierRepository supplierRepository;
-
-    @Autowired
-    AttentionRepository attentionRepository;
-
-    @Autowired
-    CategoryRepository categoryRepository;
-
-    public static final ModelMapper modelMapper=new ModelMapper();
-
+        return supplierAttentions.stream().map(supplierAttention -> modelMapper.map(supplierAttention, SupplierAtenttionSupDTO.class)).collect(Collectors.toList());
+    }
 
     //Long supplierId, CreateAttentionDTO attention, double price
     @Override

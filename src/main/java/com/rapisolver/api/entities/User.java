@@ -55,6 +55,9 @@ public class User implements Serializable {
     @JoinColumn(name="location_id")
     private Location location;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
+    private List<SupplierAttention> supplierAttentions;
+
     public User(String firstName, String lastName, String email, String password, String phone, Date birthdate, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -76,4 +79,5 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Reservation> reservations;*/
+
 }

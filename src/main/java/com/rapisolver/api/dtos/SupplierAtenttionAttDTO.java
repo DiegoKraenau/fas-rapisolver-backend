@@ -16,4 +16,5 @@ public class SupplierAtenttionAttDTO {
     private Long id;
     private double price;
     private AttentionDTO attention;
+    private UserDTO supplier;
 }

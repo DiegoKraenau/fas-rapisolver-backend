@@ -9,5 +9,5 @@ public class AttentionDTO {
     private Long categoryId;
     private String name;
     private String detail;
-    private CategoryDTO categoryDTO;
+    private CategoryDTO category;
 }
