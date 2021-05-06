@@ -1,12 +1,10 @@
 package com.rapisolver.api.controllers;
 
-import com.rapisolver.api.dtos.AttentionDTO;
-import com.rapisolver.api.dtos.CreateAttentionDTO;
-import com.rapisolver.api.dtos.CreateReservationDTO;
-import com.rapisolver.api.dtos.ReservationDTO;
+import com.rapisolver.api.dtos.*;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.AttentionService;
+import com.rapisolver.api.services.SupplierAttentionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +17,9 @@ import java.util.List;
 public class AttentionController {
     @Autowired
     AttentionService attentionService;
+
+    @Autowired
+    SupplierAttentionService supplierAttentionService;
 
     @GetMapping("/attentions")
     private RapisolverResponse<List<AttentionDTO>> getAll() {
@@ -41,6 +42,19 @@ public class AttentionController {
         }
         return new RapisolverResponse<>(200, "OK","Atencion encontrada", attention);
     }
+
+    @GetMapping("/atenttions-name/{names}")
+    private RapisolverResponse<List<SupplierAtenttionAttDTO>> getByName(@PathVariable @Valid String names) {
+        List<SupplierAtenttionAttDTO> attention;
+        try {
+            attention = supplierAttentionService.findSuppliersByAttention(names);
+        } catch (RapisolverException e) {
+            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
+        }
+        return new RapisolverResponse<>(200, "OK","Atenciones encontradas", attention);
+    }
+
+
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/attention/{attentionId}")

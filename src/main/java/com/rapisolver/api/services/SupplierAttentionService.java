@@ -1,10 +1,15 @@
 package com.rapisolver.api.services;
 
-import com.rapisolver.api.dtos.CreateAttentionDTO;
-import com.rapisolver.api.dtos.CreateSupplierAttentionDTO;
-import com.rapisolver.api.dtos.SupplierAttentionDTO;
+import com.rapisolver.api.dtos.*;
+
 import com.rapisolver.api.exceptions.RapisolverException;
 
+import java.util.List;
+
 public interface SupplierAttentionService {
-    SupplierAttentionDTO CreateSupplierAttention(CreateSupplierAttentionDTO createSupplierAttentionDTO)throws RapisolverException;
+    List<SupplierAtenttionAttDTO> findSuppliersByAttention(String attention) throws RapisolverException;
+
+    List<SupplierAtenttionSupDTO> findAttentionsBySuppliers(String names) throws RapisolverException;
+
+    SupplierAttentionDTO CreateSupplierAttention(CreateSupplierAttentionDTO createSupplierAttentionDTO) throws RapisolverException;
 }
