@@ -21,16 +21,16 @@ import java.util.stream.Collectors;
 public class ReservationServiceImpl  implements ReservationService {
 
     @Autowired
-    LocationRepository locationRepository;
+    private LocationRepository locationRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    SupplierAttentionRepository supplierAttentionRepository;
+    private SupplierAttentionRepository supplierAttentionRepository;
 
     @Autowired
-    ReservationRepository reservationRepository;
+    private ReservationRepository reservationRepository;
 
     public static final ModelMapper modelMapper=new ModelMapper();
 
@@ -57,7 +57,7 @@ public class ReservationServiceImpl  implements ReservationService {
             Reservation reservation = new Reservation();
             Location location = modelMapper.map(createReservationDTO,Location.class);
             User usuario= new User();
-            SupplierAttentions supplierAttention = new SupplierAttentions();
+            SupplierAttention supplierAttention = new SupplierAttention();
 
             usuario=userRepository.findById(createReservationDTO.getUserId())
                     .orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
@@ -101,7 +101,7 @@ public class ReservationServiceImpl  implements ReservationService {
         Location location = modelMapper.map(updateReservationDTO,Location.class);
         User usuario = userRepository.findById(updateReservationDTO.getUserId())
                                         .orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
-        SupplierAttentions supplierAttention = supplierAttentionRepository.findById(updateReservationDTO.getSupplierAttentionId())
+        SupplierAttention supplierAttention = supplierAttentionRepository.findById(updateReservationDTO.getSupplierAttentionId())
                 .orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
 
         try {
