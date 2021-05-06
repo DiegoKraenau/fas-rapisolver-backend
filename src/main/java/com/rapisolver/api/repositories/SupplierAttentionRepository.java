@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SupplierAttentionRepository  extends JpaRepository<SupplierAttentions,Long> {
-    List<SupplierAttentions> findByAttention_Id(Long attention_id);
-    List<SupplierAttentions> findBySupplierId(Long supplier_id);
+public interface SupplierAttentionRepository  extends JpaRepository<SupplierAttention,Long> {
+    List<SupplierAttention> findByAttention_Id(Long attention_id);
+    List<SupplierAttention> findBySupplierId(Long supplier_id);
 }

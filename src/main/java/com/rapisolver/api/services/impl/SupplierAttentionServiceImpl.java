@@ -6,7 +6,7 @@ import com.rapisolver.api.dtos.SupplierAtenttionSupDTO;
 import com.rapisolver.api.dtos.SupplierDTO;
 import com.rapisolver.api.entities.Attention;
 import com.rapisolver.api.entities.Supplier;
-import com.rapisolver.api.entities.SupplierAttentions;
+import com.rapisolver.api.entities.SupplierAttention;
 import com.rapisolver.api.exceptions.NotFoundException;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.AttentionRepository;
@@ -35,7 +35,7 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
     public List<SupplierAtenttionSupDTO> findSuppliersByAttention(String attention) throws RapisolverException {
         Attention attention1=new Attention();
         attention1= attentionRepository.findByName(attention).orElseThrow(()->new NotFoundException("ATTENTION_NOT_FOUND"));
-        List<SupplierAttentions> supplierAttentions;
+        List<SupplierAttention> supplierAttentions;
         supplierAttentions=supplierAttentionRepository.findByAttention_Id(attention1.getId());
         return supplierAttentions.stream().map(supplierAttentions1 -> modelMapper.map(supplierAttentions1, SupplierAtenttionSupDTO.class)).collect(Collectors.toList());
     }
@@ -44,7 +44,7 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
     public List<SupplierAtenttionAttDTO> findAttentionsBySuppliers(String comercialName) throws RapisolverException {
         Supplier supplier1 = new Supplier();
         supplier1=supplierRepository.findByComercialName(comercialName).orElseThrow(()->new NotFoundException("SUPPLIER_NOT_FOUND"));
-        List<SupplierAttentions> supplierAttentions;
+        List<SupplierAttention> supplierAttentions;
         supplierAttentions = supplierAttentionRepository.findBySupplierId(supplier1.getId());
         return supplierAttentions.stream().map(supplierAttentions1 -> modelMapper.map(supplierAttentions1,SupplierAtenttionAttDTO.class)).collect(Collectors.toList());
     }
