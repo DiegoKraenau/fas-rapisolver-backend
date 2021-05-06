@@ -13,7 +13,7 @@ public class Recommendation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 1, nullable = false)
+    @Column(nullable = false)
     private Integer mark;
 
     @Column(length = 100)

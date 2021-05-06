@@ -56,12 +56,6 @@ public class AttentionController {
 
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/attention")
-    public RapisolverResponse<AttentionDTO> createAttention(@RequestBody @Valid CreateAttentionDTO createAttentionDTO) throws RapisolverException{
-        return new RapisolverResponse<>(200,String.valueOf(HttpStatus.OK),"OK",attentionService.createAttention(createAttentionDTO));
-    }
-
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/attention/{attentionId}")
     public RapisolverResponse<AttentionDTO> UpdateAttention(@PathVariable Long attentionId,@RequestBody @Valid CreateAttentionDTO createAttentionDTO){
         AttentionDTO attentionDTO;

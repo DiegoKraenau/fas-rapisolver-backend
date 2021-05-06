@@ -32,10 +32,10 @@ public class CategoryController {
     }
 
     @GetMapping("/category/{categoryId}")
-    private RapisolverResponse<CategoryDTO> getByCategoryId(@PathVariable Long attentionId) {
+    private RapisolverResponse<CategoryDTO> getByCategoryId(@PathVariable Long categoryId) {
         CategoryDTO category;
         try {
-            category = categoryService.findById(attentionId);
+            category = categoryService.findById(categoryId);
         } catch (RapisolverException e) {
             return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
         }

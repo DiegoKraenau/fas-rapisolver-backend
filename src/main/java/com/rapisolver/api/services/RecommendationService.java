@@ -1,14 +1,14 @@
 package com.rapisolver.api.services;
 
 import com.rapisolver.api.dtos.CreateRecommendationDTO;
-import com.rapisolver.api.dtos.RecomendationDTO;
+import com.rapisolver.api.dtos.RecommendationDTO;
 import com.rapisolver.api.exceptions.RapisolverException;
 
 import java.util.List;
 
 public interface RecommendationService {
 
-    RecomendationDTO create(CreateRecommendationDTO createRecommendationDTO) throws RapisolverException;
-    List<RecomendationDTO> getAll() throws RapisolverException;
-    List<RecomendationDTO> getBySupplierAttentionId(Long supplierAttentionId) throws RapisolverException;
+    RecommendationDTO create(CreateRecommendationDTO createRecommendationDTO) throws RapisolverException;
+    List<RecommendationDTO> getAll() throws RapisolverException;
+    List<RecommendationDTO> getBySupplierAttentionId(Long supplierAttentionId) throws RapisolverException;
 }

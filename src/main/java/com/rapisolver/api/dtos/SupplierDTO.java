@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import lombok.Setter;
+
 @Getter
 @Setter
 public class SupplierDTO {

@@ -8,6 +8,6 @@ import lombok.Setter;
 public class CreateRecommendationDTO {
     private Integer mark;
     private String note;
-    private Long customerId;
+    private Long userId;
     private Long supplierAttentionId;
 }
