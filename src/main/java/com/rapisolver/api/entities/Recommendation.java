@@ -3,26 +3,28 @@ package com.rapisolver.api.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
+@Entity
+@Table(name = "recommendations")
+@Data
 public class Recommendation {
-
-    //TODO Arreglar esta clase según la base de datos
-  /*  @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 1, nullable = false)
-    private Integer mark;
-
-    @Column(length = 100)
-    private String note;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_attention_id", nullable = false)
+    private SupplierAttentions supplierAttentions;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_receiver_id", nullable = false)
-    private User userReceiver;*/
+    @Column(name = "date", nullable = false)
+    private Date date;
+
+    @Column(name = "comment",length = 100, nullable = false)
+    private String comment;
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 //@Table(name="supplier")
@@ -22,4 +23,6 @@ public class Supplier extends User {
         this.comercialName = comercialName;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recommendation")
+    private List<Recommendation> recommendations;
 }

@@ -35,6 +35,9 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Reservation> reservations;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Recommendation> recommendations;
+
     @Column(length = 100)
     private String firstName;
 
