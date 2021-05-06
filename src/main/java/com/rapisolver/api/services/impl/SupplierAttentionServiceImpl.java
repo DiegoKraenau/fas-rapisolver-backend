@@ -6,7 +6,7 @@ import com.rapisolver.api.dtos.SupplierAttentionDTO;
 import com.rapisolver.api.entities.Attention;
 import com.rapisolver.api.entities.Category;
 import com.rapisolver.api.entities.Supplier;
-import com.rapisolver.api.entities.SupplierAttentions;
+import com.rapisolver.api.entities.SupplierAttention;
 import com.rapisolver.api.exceptions.InternalServerErrorException;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.AttentionRepository;
@@ -59,8 +59,8 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
             throw new InternalServerErrorException("Error!! No se pudo crear el servicio");
         }
 
-        SupplierAttentions supplierAttentionsObj;
-        SupplierAttentions supplierAttentions=new SupplierAttentions();
+        SupplierAttention supplierAttentionsObj;
+        SupplierAttention supplierAttentions=new SupplierAttention();
         try{
             supplierAttentions.setSupplier(supplier);
             supplierAttentions.setAttention(attentionparam);

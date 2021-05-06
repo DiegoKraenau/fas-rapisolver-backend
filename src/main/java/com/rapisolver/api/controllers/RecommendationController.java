@@ -1,7 +1,7 @@
 package com.rapisolver.api.controllers;
 
 import com.rapisolver.api.dtos.CreateRecommendationDTO;
-import com.rapisolver.api.dtos.RecomendationDTO;
+import com.rapisolver.api.dtos.RecommendationDTO;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.RecommendationService;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,10 +21,10 @@ public class RecommendationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/recommendations")
-    public RapisolverResponse<RecomendationDTO> create(CreateRecommendationDTO createRecommendationDTO) {
+    public RapisolverResponse<RecommendationDTO> create(@Valid @RequestBody CreateRecommendationDTO createRecommendationDTO) {
         try {
-            RecomendationDTO recomendationDTO = recommendationService.create(createRecommendationDTO);
-            return new RapisolverResponse<>(201,"CREATED", "Recomendacion creada", recomendationDTO);
+            RecommendationDTO recommendationDTO = recommendationService.create(createRecommendationDTO);
+            return new RapisolverResponse<>(201,"CREATED", "Recomendacion creada", recommendationDTO);
         } catch (RapisolverException e) {
             return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
         }
@@ -31,20 +32,20 @@ public class RecommendationController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/recommendations")
-    public RapisolverResponse<List<RecomendationDTO>> getAll() {
+    public RapisolverResponse<List<RecommendationDTO>> getAll() {
         try {
-            List<RecomendationDTO> recomendationDTOS= recommendationService.getAll();
-            return new RapisolverResponse<>(200,"OK", "Lista de recomendaciones", recomendationDTOS);
+            List<RecommendationDTO> recommendationDTOS = recommendationService.getAll();
+            return new RapisolverResponse<>(200,"OK", "Lista de recomendaciones", recommendationDTOS);
         } catch (RapisolverException e) {
             return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
         }
     }
 
     @GetMapping("/recommendations/supplier-attention/{id}")
-    public RapisolverResponse<List<RecomendationDTO>> getBySupplierAttentionId(@PathVariable Long id) {
+    public RapisolverResponse<List<RecommendationDTO>> getBySupplierAttentionId(@PathVariable Long id) {
         try {
-            List<RecomendationDTO> recomendationDTOS = recommendationService.getBySupplierAttentionId(id);
-            return new RapisolverResponse<>(200,"OK", "Lista de recomendaciones del servicio con id:"+id, recomendationDTOS);
+            List<RecommendationDTO> recommendationDTOS = recommendationService.getBySupplierAttentionId(id);
+            return new RapisolverResponse<>(200,"OK", "Lista de recomendaciones del servicio con id:"+id, recommendationDTOS);
         } catch (RapisolverException e) {
             return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
         }

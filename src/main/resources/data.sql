@@ -19,5 +19,5 @@ INSERT INTO categories (name) VALUES ('Electricidad');
 INSERT INTO attentions (name,category_id) VALUES ('Reparacion de luces',1);
 
 --SupplierAttentions
-INSERT INTO supplier_attentions (price,attention_id) VALUES (300,1);
+INSERT INTO supplier_attentions (price,attention_id,user_supplier_id) VALUES (300,1,2);
 

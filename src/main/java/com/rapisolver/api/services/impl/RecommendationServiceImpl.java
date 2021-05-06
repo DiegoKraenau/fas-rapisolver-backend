@@ -1,7 +1,7 @@
 package com.rapisolver.api.services.impl;
 
 import com.rapisolver.api.dtos.CreateRecommendationDTO;
-import com.rapisolver.api.dtos.RecomendationDTO;
+import com.rapisolver.api.dtos.RecommendationDTO;
 import com.rapisolver.api.entities.Recommendation;
 import com.rapisolver.api.entities.SupplierAttention;
 import com.rapisolver.api.entities.User;
@@ -34,12 +34,12 @@ public class RecommendationServiceImpl implements RecommendationService {
     private UserRepository userRepository;
 
     @Override
-    public RecomendationDTO create(CreateRecommendationDTO createRecommendationDTO) throws RapisolverException {
+    public RecommendationDTO create(CreateRecommendationDTO createRecommendationDTO) throws RapisolverException {
 
-        User user = userRepository.findById(createRecommendationDTO.getCustomerId())
+        User userDB = userRepository.findById(createRecommendationDTO.getUserId())
                         .orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
 
-        SupplierAttention supplierAttention = supplierAttentionRepository.findById(createRecommendationDTO.getSupplierAttentionId())
+        SupplierAttention supplierAttentionDB = supplierAttentionRepository.findById(createRecommendationDTO.getSupplierAttentionId())
                                                 .orElseThrow(() -> new NotFoundException("SUPPLIER_ATTENTION_NOT_FOUND"));
 
 
@@ -47,30 +47,30 @@ public class RecommendationServiceImpl implements RecommendationService {
             Recommendation recommendation = new Recommendation();
             recommendation.setMark(createRecommendationDTO.getMark());
             recommendation.setNote(createRecommendationDTO.getNote());
-            recommendation.setUser(user);
-            recommendation.setSupplierAttention(supplierAttention);
-
-            return MAPPER.map(recommendationRepository.save(recommendation), RecomendationDTO.class);
+            recommendation.setUser(userDB);
+            recommendation.setSupplierAttention(supplierAttentionDB);
+            recommendation = recommendationRepository.save(recommendation);
+            return MAPPER.map(recommendation, RecommendationDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("CREATE_RECOMMENDATION_ERROR");
         }
     }
 
     @Override
-    public List<RecomendationDTO> getAll() throws RapisolverException {
+    public List<RecommendationDTO> getAll() throws RapisolverException {
         try {
             List<Recommendation> recommendations = recommendationRepository.findAll();
-            return recommendations.stream().map(r -> MAPPER.map(r, RecomendationDTO.class)).collect(Collectors.toList());
+            return recommendations.stream().map(r -> MAPPER.map(r, RecommendationDTO.class)).collect(Collectors.toList());
         } catch (Exception e) {
             throw new InternalServerErrorException("GET_RECOMMENDATIONS_ERROR");
         }
     }
 
     @Override
-    public List<RecomendationDTO> getBySupplierAttentionId(Long supplierAttentionId) throws RapisolverException {
+    public List<RecommendationDTO> getBySupplierAttentionId(Long supplierAttentionId) throws RapisolverException {
         try {
             List<Recommendation> recommendations = recommendationRepository.findBySupplierAttentionId(supplierAttentionId);
-            return recommendations.stream().map(r -> MAPPER.map(r, RecomendationDTO.class)).collect(Collectors.toList());
+            return recommendations.stream().map(r -> MAPPER.map(r, RecommendationDTO.class)).collect(Collectors.toList());
         } catch (Exception e) {
             throw new InternalServerErrorException("GET_RECOMMENDATIONS_BY_SUPPLIERATTENTION_ID_ERROR");
         }

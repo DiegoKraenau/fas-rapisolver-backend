@@ -25,5 +25,5 @@ public class Attention {
     private Category category;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
-    private List<SupplierAttentions> userAttentions;
+    private List<SupplierAttention> userAttentions;
 }

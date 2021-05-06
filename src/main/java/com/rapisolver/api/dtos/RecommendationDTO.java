@@ -5,10 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RecomendationDTO {
+public class RecommendationDTO {
     private Long id;
     private Integer mark;
     private String note;
-    private UserDTO user;
-    private SupplierAttentionDTO supplierAttention;
 }
