@@ -1,6 +1,6 @@
 package com.rapisolver.api.entities;
 
-import com.rapisolver.api.entities.SupplierAttentions;
+import com.rapisolver.api.entities.SupplierAttention;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,7 +26,7 @@ public class Attention {
     private Category category;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
-    private List<SupplierAttentions> supplierAttentions;
+    private List<SupplierAttention> supplierAttentions;
 
    /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
     private List<SupplierAttention> userAttentions;*/

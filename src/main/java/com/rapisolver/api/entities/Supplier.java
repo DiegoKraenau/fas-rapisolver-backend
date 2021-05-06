@@ -23,7 +23,7 @@ public class Supplier extends User {
         this.comercialName = comercialName;
     }
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
-    private List<SupplierAttentions> supplierAttentionsList;
+    private List<SupplierAttention> supplierAttentionsList;
 
     
 
