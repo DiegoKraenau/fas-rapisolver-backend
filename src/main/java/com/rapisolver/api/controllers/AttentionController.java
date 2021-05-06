@@ -4,20 +4,20 @@ import com.rapisolver.api.dtos.*;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.response.RapisolverResponse;
 import com.rapisolver.api.services.AttentionService;
+import java.util.List;
+import javax.validation.Valid;
 import com.rapisolver.api.services.SupplierAttentionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
-
 @RestController
-@RequestMapping(path = "/rapiSolver/"+"/v1")
+@RequestMapping(path = "/rapiSolver/" + "/v1")
 public class AttentionController {
+
     @Autowired
     AttentionService attentionService;
-
+  
     @Autowired
     SupplierAttentionService supplierAttentionService;
 
@@ -32,16 +32,25 @@ public class AttentionController {
         return new RapisolverResponse<>(200, "OK","Lista de atenciones", attentionList);
     }
 
-    @GetMapping("/attention/{attentionId}")
-    private RapisolverResponse<AttentionDTO> getByAttentionId(@PathVariable Long attentionId) {
-        AttentionDTO attention;
-        try {
-            attention = attentionService.findById(attentionId);
-        } catch (RapisolverException e) {
-            return new RapisolverResponse<>(e.getCode(), e.getStatus(), e.getMessage());
-        }
-        return new RapisolverResponse<>(200, "OK","Atencion encontrada", attention);
+  @GetMapping("/attention/{attentionId}")
+  private RapisolverResponse<AttentionDTO> getByAttentionId(@PathVariable Long attentionId) {
+    AttentionDTO attention;
+    try {
+      attention = attentionService.findById(attentionId);
+    } catch (RapisolverException e) {
+      return new RapisolverResponse<>(
+        e.getCode(),
+        e.getStatus(),
+        e.getMessage()
+      );
     }
+    return new RapisolverResponse<>(
+      200,
+      "OK",
+      "Atencion encontrada",
+      attention
+    );
+  }
 
     @GetMapping("/atenttions-name/{names}")
     private RapisolverResponse<List<SupplierAtenttionAttDTO>> getByName(@PathVariable @Valid String names) {
@@ -67,4 +76,17 @@ public class AttentionController {
         }
         return new RapisolverResponse<>(200,"ok","Servicio actualizado correctamente",attentionDTO);
     }
+
+  @ResponseStatus(HttpStatus.OK)
+  @GetMapping("/attention/status")
+  public RapisolverResponse<AttentionDTO> getAllAttentionByStatus()
+    throws RapisolverException {
+    AttentionDTO attentionDTO = (AttentionDTO) attentionService.getAllAttentionByDelivered();
+    return new RapisolverResponse<>(
+      200,
+      "OK",
+      "Lista de servicios más pedidos segun su estatus",
+      attentionDTO
+    );
+  }
 }
