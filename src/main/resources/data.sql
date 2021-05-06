@@ -17,4 +17,7 @@ INSERT INTO users(
 VALUES (3, '2004-08-20','dadad@gmail.com', 'dadad', 'dada', 'czczcz', '949494949', 2);
 */
 --SupplierAttentions
-INSERT INTO  supplier_attentions (id,price,attention_id,user_supplier_id) VALUES (1,300,1,1);
+INSERT INTO categories (id,name) VALUES (1,'Electricidad');
+INSERT INTO attentions (id,name,category_id) VALUES (1,'Reparacion de luces',1);
+INSERT INTO supplier_attentions (id,price,attention_id) VALUES (1,300,1);
+

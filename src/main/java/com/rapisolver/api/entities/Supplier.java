@@ -9,11 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="supplier")
+//@Table(name="supplier")
 @NoArgsConstructor
 @Getter
 @Setter
-@PrimaryKeyJoinColumn(name = "id")
 @DiscriminatorValue("SUPPLIER")
 public class Supplier extends User {
     @Column(length = 100)

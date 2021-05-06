@@ -16,4 +16,8 @@ public class LoginRest {
 
     @NotBlank
     private String password;
+
+    public LoginRest() {
+
+    }
 }

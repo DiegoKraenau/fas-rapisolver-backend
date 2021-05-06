@@ -3,7 +3,7 @@ package com.rapisolver.api.services;
 import com.rapisolver.api.dtos.CreateReservationDTO;
 import com.rapisolver.api.entities.Location;
 import com.rapisolver.api.entities.Reservation;
-import com.rapisolver.api.entities.SupplierAttentions;
+import com.rapisolver.api.entities.SupplierAttention;
 import com.rapisolver.api.entities.User;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.LocationRepository;
@@ -47,11 +47,11 @@ public class ReservationServiceTest {
 
     private static final Optional<User> OPTIONAL_USER = Optional.of(USER);
 
-    private static final SupplierAttentions SUPPLIER_ATTENTIONS = new SupplierAttentions();
+    private static final SupplierAttention SUPPLIER_ATTENTIONS = new SupplierAttention();
 
     private static final  Double PRICE = 300.00;
 
-    private static final Optional<SupplierAttentions> OPTIONAL_SUPPLIER_ATTENTIONS = Optional.of(SUPPLIER_ATTENTIONS);
+    private static final Optional<SupplierAttention> OPTIONAL_SUPPLIER_ATTENTIONS = Optional.of(SUPPLIER_ATTENTIONS);
 
     CreateReservationDTO  CREATE_RESERVATION_DTO = new CreateReservationDTO();
 
@@ -96,6 +96,9 @@ public class ReservationServiceTest {
        Mockito.when(userRepository.findById(USER_ID)).thenReturn(OPTIONAL_USER);
        Mockito.when(supplierAttentionRepository.findById(SUPPLIER_ATTENTION_ID)).thenReturn(OPTIONAL_SUPPLIER_ATTENTIONS);
        Mockito.when(reservationRepository.save(Mockito.any(Reservation.class))).thenReturn(new Reservation());
+
        reservationServiceImpl.createReservation(CREATE_RESERVATION_DTO);
+
+
    }
 }

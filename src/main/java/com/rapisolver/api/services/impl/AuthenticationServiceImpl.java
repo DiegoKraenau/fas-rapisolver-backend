@@ -5,10 +5,8 @@ import com.rapisolver.api.controllers.commons.ResponseConstants;
 import com.rapisolver.api.dtos.LoginRest;
 import com.rapisolver.api.dtos.SignUpRest;
 import com.rapisolver.api.dtos.UserDTO;
-import com.rapisolver.api.entities.Customer;
-import com.rapisolver.api.entities.Role;
-import com.rapisolver.api.entities.Supplier;
-import com.rapisolver.api.entities.User;
+import com.rapisolver.api.entities.*;
+import com.rapisolver.api.repositories.LocationRepository;
 import com.rapisolver.api.repositories.RoleRepository;
 
 import com.rapisolver.api.repositories.UserRepository;
@@ -16,6 +14,7 @@ import com.rapisolver.api.security.jwt.JwtUtils;
 import com.rapisolver.api.security.response.JwtResponse;
 import com.rapisolver.api.security.service.UserDetailsImpl;
 import com.rapisolver.api.services.AuthenticationService;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,6 +54,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     AuthenticationManager authenticationManager;
 
     @Autowired
+    LocationRepository locationRepository;
+
+    @Autowired
     ModelMapper modelMapper;
 
     @Autowired
@@ -63,65 +65,54 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public ResponseEntity<RapiSolverResponse> registerUser(SignUpRest signUpRequest) {
-
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(RapiSolverResponse.builder()
-                            .code(ResponseConstants.ERROR_CODE)
-                            .message("EMAIL IS ALREADY TAKEN")
-                            .build());
-        }
-
-        String strRole = signUpRequest.getRole();
-        Role userRole;
-        if (strRole == null) {
-            return ResponseEntity.badRequest().body(RapiSolverResponse.builder()
-                    .code(ResponseConstants.ERROR_CODE)
-                    .message("ROLE CANNOT BE NULL")
-                    .build());
-        } else {
-            switch (strRole) {
-                case "ROLE_CUSTOMER":
-                    userRole  = roleRepository.findByName("ROLE_CUSTOMER")
-                            .orElseThrow(() -> new RuntimeException("ROLE NOT FOUND"));
-                    break;
-                case "ROLE_SUPPLIER":
-                    userRole = roleRepository.findByName("ROLE_SUPPLIER")
-                            .orElseThrow(() -> new RuntimeException("ROLE NOT FOUND"));
-                    break;
-                default:
-                    throw new RuntimeException("ROLE NOT FOUND");
-
+        try {
+            if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(RapiSolverResponse.builder()
+                                .code(ResponseConstants.ERROR_CODE)
+                                .message("EMAIL IS ALREADY TAKEN")
+                                .build());
             }
 
-        }
 
-        // Create new user's account
+            Role userRole = roleRepository.findByName("ROLE_CUSTOMER")
+                    .orElseThrow(() -> new RuntimeException("ROLE NOT FOUND"));
 
-        User savedUser;
+            // Create new user's account
 
-        if(userRole.getName().equals("ROLE_CUSTOMER")){
+            User savedUser;
+
             Customer customer = new Customer(signUpRequest.getFirstname(), signUpRequest.getLastname(), signUpRequest.getEmail(),
                     encoder.encode(signUpRequest.getPassword()), signUpRequest.getPhone(), signUpRequest.getBirthdate(), userRole,null);
 
+            Location location = new Location(signUpRequest.getCountry(), signUpRequest.getState(), signUpRequest.getCity(), signUpRequest.getAddress());
+
+            Location savedLocation = locationRepository.save(location);
+
+            customer.setLocation(savedLocation);
             savedUser = userRepository.save(customer);
-        } else {
-            Supplier supplier = new Supplier(signUpRequest.getFirstname(), signUpRequest.getLastname(), signUpRequest.getEmail(),
-                    encoder.encode(signUpRequest.getPassword()), signUpRequest.getPhone(), signUpRequest.getBirthdate(), userRole,"");
 
-            savedUser = userRepository.save(supplier);
-       }
+            UserDTO userDTO = modelMapper.map(savedUser,UserDTO.class);
 
-        UserDTO userDTO = modelMapper.map(savedUser,UserDTO.class);
+            return ResponseEntity.ok(
+                    RapiSolverResponse.builder()
+                            .code(ResponseConstants.SUCCESS_CODE)
+                            .message("USER SUCCESSFULLY REGISTERED")
+                            .data(userDTO)
+                            .build()
+            );
+        } catch (Exception e) {
+            String stacktrace = ExceptionUtils.getStackTrace(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(RapiSolverResponse.builder()
+                            .code(ResponseConstants.ERROR_CODE)
+                            .message("INTERNAL_ERROR"+ stacktrace)
+                            .build());
+        }
 
-        return ResponseEntity.ok(
-                RapiSolverResponse.builder()
-                        .code(ResponseConstants.SUCCESS_CODE)
-                        .message("USER SUCCESSFULLY REGISTERED")
-                        .data(userDTO)
-                        .build()
-        );
+
+
     }
 
     @Override

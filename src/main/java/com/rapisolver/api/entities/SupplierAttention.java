@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "supplier_attentions")
 @Data
-public class SupplierAttentions {
+public class SupplierAttention {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +24,16 @@ public class SupplierAttentions {
     @JoinColumn(name = "user_supplier_id", nullable = false)
     private Supplier supplier;
 
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+*/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attention_id", nullable = false)
     private Attention attention;
 /*
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplierAttention")
     private List<Reservation> reservations;*/
 }
 
