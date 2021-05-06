@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface AttentionRepository extends JpaRepository<Attention, Long> {
   @Query(
     value = "SELECT A.NAME" +
-    "FROM ATTENTIONS A INNER JOIN SUPPLIER_ATTENTIONS B ON A.ID = B.ATTENTION_ID INNER JOIN RESERVATIONS C ON B.ID = B.USER_SUPPLIER_ID WHERE C.STATUS = 2 GROUP BY A.NAME",
+    "FROM ATTENTIONS A INNER JOIN SUPPLIER_ATTENTIONS B ON A.id = B.attention_id INNER JOIN RESERVATIONS C ON B.id = C.supplier_attention_id WHERE C.STATUS = 2 GROUP BY A.NAME",
     nativeQuery = true
   )
   List<Attention> getAllAttentionsByDelivered();
