@@ -30,3 +30,9 @@ INSERT INTO supplier_attentions (price,attention_id,user_supplier_id) VALUES (40
 INSERT INTO supplier_attentions (price,attention_id,user_supplier_id) VALUES (500,2,3);
 INSERT INTO supplier_attentions (price,attention_id,user_supplier_id) VALUES (200,2,4);
 INSERT INTO supplier_attentions (price,attention_id,user_supplier_id) VALUES (200,3,4);
+
+--Reservations
+INSERT INTO reservations (location_id,user_id,supplier_attention_id,date_requested,comment,status)
+            VALUES (1,1,2,'2021-05-01','comment',2),
+                   (1,1,3,'2021-05-02','comment',2),
+                   (1,1,4,'2021-05-03','comment',2);
