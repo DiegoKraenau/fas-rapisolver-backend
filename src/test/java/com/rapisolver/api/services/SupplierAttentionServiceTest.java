@@ -7,6 +7,7 @@ import com.rapisolver.api.entities.*;
 import com.rapisolver.api.exceptions.RapisolverException;
 import com.rapisolver.api.repositories.*;
 import com.rapisolver.api.services.impl.SupplierAttentionServiceImpl;
+import org.checkerframework.checker.units.qual.A;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,16 +73,10 @@ public class SupplierAttentionServiceTest {
     AttentionRepository attentionRepository;
 
     @Mock
-    SupplierRepository supplierRepository;
-
-    @Mock
     SupplierAttentionRepository supplierAttentionRepository;
 
     @Mock
     UserRepository userRepository;
-
-    @Mock
-    CategoryRepository categoryRepository;
 
     @InjectMocks
     SupplierAttentionServiceImpl supplierAttentionServiceImpl;
@@ -153,5 +148,11 @@ public class SupplierAttentionServiceTest {
         Mockito.when(supplierAttentionRepository.findBySupplierIn(USER_LIST)).thenReturn(Arrays.asList(supplierAttention));
         supplierAttentionServiceImpl.findAttentionsBySuppliers(FIRST_NAME);
 
+    }
+
+    @Test
+    public void findAttentionsReservedTest() throws RapisolverException {
+        Mockito.when(supplierAttentionRepository.findRecord(USER_ID)).thenReturn(SUPPLIER_ATTENTIONS_LIST);
+        supplierAttentionServiceImpl.findAttentionsReserved(USER_ID);
     }
 }
