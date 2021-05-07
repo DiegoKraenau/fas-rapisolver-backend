@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "users_attentions")
+@Table(name = "supplier_attentions")
 @Data
-public class UserAttention {
+public class SupplierAttention {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,9 @@ public class UserAttention {
     @Column(nullable = false)
     private double price;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplierAttention")
+    private List<Reservation> reservations;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_supplier_id", nullable = false)
     private User supplier;
@@ -24,7 +27,5 @@ public class UserAttention {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attention_id", nullable = false)
     private Attention attention;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
-    private List<Reservation> reservations;
 }
+

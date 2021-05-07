@@ -1,46 +1,76 @@
 package com.rapisolver.api.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+//Comment
 @Entity
 @Table(name = "users")
 @Data
-public class User {
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type",
+        discriminatorType = DiscriminatorType.STRING)
+public class User implements Serializable {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 30, nullable = false)
-    private String firstname;
-
-    @Column(length = 30, nullable = false)
-    private String lastname;
-
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(length = 100, nullable = false)
     private String email;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 500, nullable = false)
     private String password;
 
-    @Column(length = 9, nullable = false)
+    //TODO Agregar dependcia de rol y los otros atributos faltantes
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Reservation> reservations;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Recommendation> recommendations;
+
+    @Column(length = 100)
+    private String firstName;
+
+    @Column(length = 100)
+    private String lastName;
+
+    @Column(length = 9)
     private String phone;
 
-    @Column(length = 8, nullable = false, unique = true)
-    private String dni;
-
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date birthdate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="location_id")
+    private Location location;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier")
+    private List<SupplierAttention> supplierAttentions;
+
+    public User(String firstName, String lastName, String email, String password, String phone, Date birthdate, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.birthdate = birthdate;
+        this.role = role;
+    }
+/*
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> scores;
 
@@ -51,5 +81,6 @@ public class User {
     private List<UserAttention> userAttentions;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Reservation> reservations;
+    private List<Reservation> reservations;*/
+
 }

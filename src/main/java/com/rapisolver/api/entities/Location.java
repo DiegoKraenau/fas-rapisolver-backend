@@ -1,6 +1,7 @@
 package com.rapisolver.api.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "locations")
 @Data
+@NoArgsConstructor
 public class Location {
 
     @Id
@@ -26,6 +28,16 @@ public class Location {
     @Column(length = 70, nullable = false)
     private String address;
 
+    @OneToOne(mappedBy = "location",cascade = CascadeType.ALL)
+    private User user;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
     private List<Reservation> reservations;
+
+    public Location(String country, String state, String city, String address) {
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.address = address;
+    }
 }

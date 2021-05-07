@@ -3,7 +3,7 @@ package com.rapisolver.api.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table(name = "roles")
@@ -13,12 +13,21 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, unique = true, nullable = false)
     private String name;
 
     @Column(name = "can_publish", nullable = false)
     private boolean canPublish;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    private List<User> users;
+    public Role(String role_customer) {
+        this.name=role_customer;
+        this.canPublish = (name.equals("ROLE_CUSTOMER"))? false : true;
+    }
+
+    public Role() {
+
+    }
+
+/*    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    private List<User> users;*/
 }
