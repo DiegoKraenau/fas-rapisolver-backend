@@ -9,4 +9,6 @@ public class RecommendationDTO {
     private Long id;
     private Integer mark;
     private String note;
+    private UserDTO user;
+    private SupplierAtenttionAttDTO supplierAtenttion;
 }
