@@ -11,5 +11,7 @@ public interface SupplierAttentionService {
 
     List<SupplierAtenttionSupDTO> findAttentionsBySuppliers(String names) throws RapisolverException;
 
+    List<SupplierAtenttionAttDTO> findAttentionsReserved(Long userId) throws RapisolverException;
+
     SupplierAttentionDTO CreateSupplierAttention(CreateSupplierAttentionDTO createSupplierAttentionDTO) throws RapisolverException;
 }

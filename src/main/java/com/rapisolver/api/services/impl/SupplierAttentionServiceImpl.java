@@ -51,6 +51,12 @@ public class SupplierAttentionServiceImpl  implements  SupplierAttentionService 
         return supplierAttentions.stream().map(supplierAttention -> modelMapper.map(supplierAttention, SupplierAtenttionSupDTO.class)).collect(Collectors.toList());
     }
 
+    @Override
+    public List<SupplierAtenttionAttDTO> findAttentionsReserved(Long userId) throws RapisolverException {
+        List<SupplierAttention> supplierAttentions = supplierAttentionRepository.findRecord(userId);
+        return supplierAttentions.stream().map(s -> modelMapper.map(s, SupplierAtenttionAttDTO.class)).collect(Collectors.toList());
+    }
+
     //Long supplierId, CreateAttentionDTO attention, double price
     @Override
     public SupplierAttentionDTO CreateSupplierAttention(CreateSupplierAttentionDTO createSupplierAttentionDTO) throws RapisolverException {
